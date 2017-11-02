@@ -4,4 +4,4 @@ FROM registry.cn-qingdao.aliyuncs.com/lscgzwd/php7:v1
 # 下面是一些创建者的基本信息
 MAINTAINER lscgzwd (lscgzwd@gmail.com)
 CMD /run.sh
-RUN echo -e "#!/bin/bash\nset -x\n# start ssh service\n/etc/init.d/sshd start\nif [ -f "/deploy/\$APPID/deploy.sh" ]; then\n    sh /deploy/\$APPID/deploy.sh\nfi\nsource /etc/profile\ntail -f /dev/null" > /run.sh && chmod +x /run.sh
+RUN echo -e "#!/bin/bash\nset -x\n# start ssh service\n/etc/init.d/sshd start\nif [ -f \"/deploy/\$APPID/deploy.sh\" ]; then\n    sh /deploy/\$APPID/deploy.sh\nfi\nexport PATH=\$PATH:/data/php7/bin:/data/php7/sbin:/data/nginx/sbin:/data/nginx/bin\ntail -f /dev/null" > /run.sh && chmod +x /run.sh&&echo -e "StrictHostKeyChecking no\nUserKnownHostsFile /dev/null\n">>/etc/ssh/ssh_config
